@@ -127,7 +127,7 @@ use serde::{
     ser::SerializeMap,
     Deserialize, Deserializer, Serialize, Serializer,
 };
-use serde_json::Value;
+use serde_json::{Map, Value};
 
 pub use self::{custom::CustomEvent, custom_room::CustomRoomEvent, custom_state::CustomStateEvent};
 
@@ -412,7 +412,7 @@ pub trait RoomEvent: Event {
     fn sender(&self) -> &UserId;
 
     /// Additional key-value pairs not signed by the homeserver.
-    fn unsigned(&self) -> Option<&Value>;
+    fn unsigned(&self) -> &Map<String, Value>;
 }
 
 /// An event that describes persistent state about a room.

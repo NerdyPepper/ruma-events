@@ -8,7 +8,7 @@ use js_int::UInt;
 use ruma_events_macros::ruma_event;
 use ruma_identifiers::{EventId, RoomAliasId, RoomId, UserId};
 use serde::{de::DeserializeOwned, Deserialize, Deserializer, Serialize};
-use serde_json::{json, Value};
+use serde_json::{json, Map, Value};
 
 /// The type of an event.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -175,7 +175,7 @@ pub trait RoomEvent: Event {
     fn sender(&self) -> &ruma_identifiers::UserId;
 
     /// Additional key-value pairs not signed by the homeserver.
-    fn unsigned(&self) -> Option<&serde_json::Value>;
+    fn unsigned(&self) -> &Map<String, Value>;
 }
 
 /// An event that describes persistent state about a room.
@@ -251,6 +251,8 @@ where
 
 // See note about wrapping macro expansion in a module from `src/lib.rs`
 mod common_case {
+    use serde_json::Map;
+
     use super::*;
 
     ruma_event! {
@@ -277,7 +279,7 @@ mod common_case {
             room_id: None,
             sender: UserId::try_from("@carl:example.com").unwrap(),
             state_key: "example.com".to_string(),
-            unsigned: None,
+            unsigned: Map::new(),
         };
         let json = json!({
             "content": {
@@ -306,7 +308,7 @@ mod common_case {
             room_id: Some(RoomId::try_from("!n8f893n9:example.com").unwrap()),
             sender: UserId::try_from("@carl:example.com").unwrap(),
             state_key: "example.com".to_string(),
-            unsigned: None,
+            unsigned: Map::new(),
         };
         let json = json!({
             "content": {
@@ -339,7 +341,7 @@ mod common_case {
             room_id: Some(RoomId::try_from("!n8f893n9:example.com").unwrap()),
             sender: UserId::try_from("@carl:example.com").unwrap(),
             state_key: "example.com".to_string(),
-            unsigned: Some(serde_json::from_str::<Value>(r#"{"foo":"bar"}"#).unwrap()),
+            unsigned: serde_json::from_str(r#"{"foo":"bar"}"#).unwrap(),
         };
         let json = json!({
             "content": {
@@ -439,7 +441,7 @@ mod extra_fields {
             origin_server_ts: UInt::try_from(1).unwrap(),
             room_id: Some(RoomId::try_from("!n8f893n9:example.com").unwrap()),
             sender: UserId::try_from("@carl:example.com").unwrap(),
-            unsigned: Some(serde_json::from_str::<Value>(r#"{"foo":"bar"}"#).unwrap()),
+            unsigned: serde_json::from_str(r#"{"foo":"bar"}"#).unwrap(),
         };
         let json = json!({
             "content": {
