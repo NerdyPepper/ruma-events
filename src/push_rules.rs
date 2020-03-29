@@ -434,7 +434,9 @@ impl Serialize for SenderNotificationPermissionCondition {
 
 #[cfg(test)]
 mod tests {
-    use serde_json::{from_value, json, to_value};
+    use serde_json::from_value as from_json_value;
+    use serde_json::json;
+    use serde_json::to_value as to_json_value;
 
     use super::{
         Action, EventMatchCondition, PushCondition, PushRulesEvent, RoomMemberCountCondition,
@@ -444,13 +446,13 @@ mod tests {
 
     #[test]
     fn serialize_string_action() {
-        assert_eq!(to_value(&Action::Notify).unwrap(), json!("notify"));
+        assert_eq!(to_json_value(&Action::Notify).unwrap(), json!("notify"));
     }
 
     #[test]
     fn serialize_tweak_sound_action() {
         assert_eq!(
-            to_value(&Action::SetTweak(Tweak::Sound {
+            to_json_value(&Action::SetTweak(Tweak::Sound {
                 value: "default".to_string()
             }))
             .unwrap(),
@@ -464,7 +466,7 @@ mod tests {
     #[test]
     fn serialize_tweak_highlight_action() {
         assert_eq!(
-            to_value(&Action::SetTweak(Tweak::Highlight { value: true })).unwrap(),
+            to_json_value(&Action::SetTweak(Tweak::Highlight { value: true })).unwrap(),
             json!({"set_tweak": "highlight", "value":true})
         );
     }
@@ -472,7 +474,7 @@ mod tests {
     #[test]
     fn deserialize_string_action() {
         assert_eq!(
-            from_value::<Action>(json!("notify")).unwrap(),
+            from_json_value::<Action>(json!("notify")).unwrap(),
             Action::Notify
         );
     }
@@ -484,7 +486,7 @@ mod tests {
             "value": "default"
         });
         assert_eq!(
-            from_value::<Action>(json_data).unwrap(),
+            from_json_value::<Action>(json_data).unwrap(),
             Action::SetTweak(Tweak::Sound {
                 value: "default".to_string()
             })
@@ -498,7 +500,7 @@ mod tests {
             "value": true
         });
         assert_eq!(
-            from_value::<Action>(json_data).unwrap(),
+            from_json_value::<Action>(json_data).unwrap(),
             Action::SetTweak(Tweak::Highlight { value: true })
         );
     }
@@ -506,7 +508,7 @@ mod tests {
     #[test]
     fn deserialize_tweak_highlight_action_with_default_value() {
         assert_eq!(
-            from_value::<Action>(json!({"set_tweak": "highlight"})).unwrap(),
+            from_json_value::<Action>(json!({"set_tweak": "highlight"})).unwrap(),
             Action::SetTweak(Tweak::Highlight { value: true })
         );
     }
@@ -519,7 +521,7 @@ mod tests {
             "pattern": "m.notice"
         });
         assert_eq!(
-            to_value(&PushCondition::EventMatch(EventMatchCondition {
+            to_json_value(&PushCondition::EventMatch(EventMatchCondition {
                 key: "content.msgtype".to_string(),
                 pattern: "m.notice".to_string(),
             }))
@@ -531,7 +533,7 @@ mod tests {
     #[test]
     fn serialize_contains_display_name_condition() {
         assert_eq!(
-            to_value(&PushCondition::ContainsDisplayName).unwrap(),
+            to_json_value(&PushCondition::ContainsDisplayName).unwrap(),
             json!({"kind": "contains_display_name"})
         );
     }
@@ -543,7 +545,7 @@ mod tests {
             "kind": "room_member_count"
         });
         assert_eq!(
-            to_value(&PushCondition::RoomMemberCount(RoomMemberCountCondition {
+            to_json_value(&PushCondition::RoomMemberCount(RoomMemberCountCondition {
                 is: "2".to_string(),
             }))
             .unwrap(),
@@ -559,7 +561,7 @@ mod tests {
         });
         assert_eq!(
             json_data,
-            to_value(&PushCondition::SenderNotificationPermission(
+            to_json_value(&PushCondition::SenderNotificationPermission(
                 SenderNotificationPermissionCondition {
                     key: "room".to_string(),
                 }
@@ -576,7 +578,7 @@ mod tests {
             "pattern": "m.notice"
         });
         assert_eq!(
-            from_value::<PushCondition>(json_data).unwrap(),
+            from_json_value::<PushCondition>(json_data).unwrap(),
             PushCondition::EventMatch(EventMatchCondition {
                 key: "content.msgtype".to_string(),
                 pattern: "m.notice".to_string(),
@@ -587,7 +589,7 @@ mod tests {
     #[test]
     fn deserialize_contains_display_name_condition() {
         assert_eq!(
-            from_value::<PushCondition>(json!({"kind": "contains_display_name"})).unwrap(),
+            from_json_value::<PushCondition>(json!({"kind": "contains_display_name"})).unwrap(),
             PushCondition::ContainsDisplayName,
         );
     }
@@ -599,7 +601,7 @@ mod tests {
             "kind": "room_member_count"
         });
         assert_eq!(
-            from_value::<PushCondition>(json_data).unwrap(),
+            from_json_value::<PushCondition>(json_data).unwrap(),
             PushCondition::RoomMemberCount(RoomMemberCountCondition {
                 is: "2".to_string(),
             })
@@ -613,7 +615,7 @@ mod tests {
             "kind": "sender_notification_permission"
         });
         assert_eq!(
-            from_value::<PushCondition>(json_data).unwrap(),
+            from_json_value::<PushCondition>(json_data).unwrap(),
             PushCondition::SenderNotificationPermission(SenderNotificationPermissionCondition {
                 key: "room".to_string(),
             })
@@ -814,7 +816,7 @@ mod tests {
             },
             "type": "m.push_rules"
         });
-        assert!(from_value::<EventResult<PushRulesEvent>>(json_data)
+        assert!(from_json_value::<EventResult<PushRulesEvent>>(json_data)
             .unwrap()
             .into_result()
             .is_ok());

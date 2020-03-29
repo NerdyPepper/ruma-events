@@ -25,7 +25,9 @@ mod tests {
     use std::collections::HashMap;
 
     use ruma_identifiers::{RoomId, UserId};
-    use serde_json::{from_value, json, to_value};
+    use serde_json::from_value as from_json_value;
+    use serde_json::json;
+    use serde_json::to_value as to_json_value;
 
     use super::{DirectEvent, DirectEventContent};
     use crate::EventResult;
@@ -46,7 +48,7 @@ mod tests {
             "type": "m.direct"
         });
 
-        assert_eq!(to_value(&event).unwrap(), json_data);
+        assert_eq!(to_json_value(&event).unwrap(), json_data);
     }
 
     #[test]
@@ -64,7 +66,7 @@ mod tests {
             "type": "m.direct"
         });
 
-        let event: DirectEvent = from_value::<EventResult<_>>(json_data)
+        let event: DirectEvent = from_json_value::<EventResult<_>>(json_data)
             .unwrap()
             .into_result()
             .unwrap();

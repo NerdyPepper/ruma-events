@@ -261,6 +261,8 @@ mod tests {
     use js_int::UInt;
 
     use ruma_identifiers::{RoomId, UserId};
+    use serde_json::from_value as from_json_value;
+    use serde_json::json;
 
     use super::AnyToDeviceEvent;
     use crate::{
@@ -275,10 +277,10 @@ mod tests {
 
     macro_rules! deserialize {
         ($source:ident, $($target:tt)*) => {{
-            let event = serde_json::from_str::<EventResult<AnyToDeviceEvent>>($source)
+            let event = from_json_value::<EventResult<AnyToDeviceEvent>>($source)
                 .expect(&format!(
                     "Can't deserialize to-device event: {} from source {}",
-                    stringify!($($target)*), $source
+                    stringify!($($target)*), stringify!($source)
                 ));
 
             let event = event
@@ -303,11 +305,11 @@ mod tests {
 
     #[test]
     fn dummy() {
-        let dummy = r#"{
+        let dummy = json!({
             "content": {},
             "sender": "@alice:example.org",
             "type": "m.dummy"
-        }"#;
+        });
 
         let event = deserialize! {dummy, AnyToDeviceEvent::Dummy};
 
@@ -316,7 +318,7 @@ mod tests {
 
     #[test]
     fn room_key() {
-        let room_key = r#"{
+        let room_key = json!({
             "content": {
                 "algorithm": "m.megolm.v1.aes-sha2",
                 "room_id": "!test:localhost",
@@ -325,7 +327,7 @@ mod tests {
             },
             "sender": "@alice:example.org",
             "type": "m.room_key"
-        }"#;
+        });
 
         let event = deserialize! {room_key, AnyToDeviceEvent::RoomKey};
 
@@ -340,7 +342,7 @@ mod tests {
 
     #[test]
     fn encrypted_olm() {
-        let source = r#"{
+        let source = json!({
             "content": {
                 "sender_key": "test_sender_key",
                 "ciphertext": {
@@ -357,7 +359,7 @@ mod tests {
             },
             "type": "m.room.encrypted",
             "sender": "@alice:example.org"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::RoomEncrypted};
 
@@ -377,7 +379,7 @@ mod tests {
 
     #[test]
     fn forwarded_room_key() {
-        let source = r#"{
+        let source = json!({
             "content": {
                 "algorithm": "m.megolm.v1.aes-sha2",
                 "forwarding_curve25519_key_chain": [
@@ -391,7 +393,7 @@ mod tests {
             },
             "sender": "@alice:example.org",
             "type": "m.forwarded_room_key"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::ForwardedRoomKey};
 
@@ -414,7 +416,7 @@ mod tests {
 
     #[test]
     fn key_request() {
-        let source = r#"{
+        let source = json!({
             "sender": "@alice:example.org",
             "content": {
                 "action": "request",
@@ -428,7 +430,7 @@ mod tests {
                 "requesting_device_id": "RJYKSTBOIE"
             },
             "type": "m.room_key_request"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::RoomKeyRequest};
         let body = event.content.body.as_ref().unwrap();
@@ -449,7 +451,7 @@ mod tests {
 
     #[test]
     fn key_request_cancel() {
-        let source = r#"{
+        let source = json!({
             "sender": "@alice:example.org",
             "content": {
                 "action": "request_cancellation",
@@ -457,7 +459,7 @@ mod tests {
                 "requesting_device_id": "RJYKSTBOIE"
             },
             "type": "m.room_key_request"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::RoomKeyRequest};
         assert_eq!(event.content.action, Action::CancelRequest);
@@ -467,7 +469,7 @@ mod tests {
 
     #[test]
     fn key_verification_start() {
-        let source = r#"{
+        let source = json!({
             "content": {
                 "from_device": "AliceDevice1",
                 "hashes": [
@@ -488,7 +490,7 @@ mod tests {
             },
             "type": "m.key.verification.start",
             "sender": "@alice:example.org"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::KeyVerificationStart};
 
@@ -519,7 +521,7 @@ mod tests {
 
     #[test]
     fn key_verification_accept() {
-        let source = r#"{
+        let source = json!({
             "content": {
                 "commitment": "fQpGIW1Snz+pwLZu6sTy2aHy/DYWWTspTJRPyNp0PKkymfIsNffysMl6ObMMFdIJhk6g6pwlIqZ54rxo8SLmAg",
                 "hash": "sha256",
@@ -534,7 +536,7 @@ mod tests {
             },
             "type": "m.key.verification.accept",
             "sender": "@alice:example.org"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::KeyVerificationAccept};
         assert_eq!(event.content.hash, HashAlgorithm::Sha256);
@@ -563,14 +565,14 @@ mod tests {
 
     #[test]
     fn key_verification_key() {
-        let source = r#"{
+        let source = json!({
             "content": {
                 "key": "fQpGIW1Snz+pwLZu6sTy2aHy/DYWWTspTJRPyNp0PKkymfIsNffysMl6ObMMFdIJhk6g6pwlIqZ54rxo8SLmAg",
                 "transaction_id": "S0meUniqueAndOpaqueString"
             },
             "type": "m.key.verification.key",
             "sender": "@alice:example.org"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::KeyVerificationKey};
 
@@ -583,7 +585,7 @@ mod tests {
 
     #[test]
     fn key_verification_mac() {
-        let source = r#"{
+        let source = json!({
             "content": {
                 "keys": "2Wptgo4CwmLo/Y8B8qinxApKaCkBG2fjTWB7AbP5Uy+aIbygsSdLOFzvdDjww8zUVKCmI02eP9xtyJxc/cLiBA",
                 "mac": {
@@ -593,7 +595,7 @@ mod tests {
             },
             "type": "m.key.verification.mac",
             "sender": "@alice:example.org"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::KeyVerificationMac};
         assert_eq!(event.content.transaction_id, "S0meUniqueAndOpaqueString");
@@ -609,7 +611,7 @@ mod tests {
 
     #[test]
     fn key_verification_cancel() {
-        let source = r#"{
+        let source = json!({
             "content": {
                 "code": "m.user",
                 "reason": "Some reason",
@@ -617,7 +619,7 @@ mod tests {
             },
             "type": "m.key.verification.cancel",
             "sender": "@alice:example.org"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::KeyVerificationCancel};
         assert_eq!(event.content.transaction_id, "S0meUniqueAndOpaqueString");
@@ -627,18 +629,18 @@ mod tests {
 
     #[test]
     fn key_verification_request() {
-        let source = r#"{
+        let source = json!({
             "content": {
                 "from_device": "AliceDevice2",
                 "methods": [
                     "m.sas.v1"
                 ],
-                "timestamp": 1559598944869,
+                "timestamp": 1559598944869u64,
                 "transaction_id": "S0meUniqueAndOpaqueString"
             },
             "type": "m.key.verification.request",
             "sender": "@alice:example.org"
-        }"#;
+        });
 
         let event = deserialize! {source, AnyToDeviceEvent::KeyVerificationRequest};
         assert_eq!(event.content.transaction_id, "S0meUniqueAndOpaqueString");
