@@ -635,7 +635,7 @@ mod tests {
                 "methods": [
                     "m.sas.v1"
                 ],
-                "timestamp": 1559598944869u64,
+                "timestamp": 1_559_598_944_869_u64,
                 "transaction_id": "S0meUniqueAndOpaqueString"
             },
             "type": "m.key.verification.request",
@@ -646,6 +646,9 @@ mod tests {
         assert_eq!(event.content.transaction_id, "S0meUniqueAndOpaqueString");
         assert_eq!(event.content.from_device, "AliceDevice2");
         assert_eq!(event.content.methods, &[VerificationMethod::MSasV1]);
-        assert_eq!(event.content.timestamp, UInt::new(1559_598944869).unwrap());
+        assert_eq!(
+            event.content.timestamp,
+            UInt::new(1_559_598_944_869).unwrap()
+        );
     }
 }
