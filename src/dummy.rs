@@ -29,21 +29,29 @@ mod tests {
     use super::{DummyEvent, Empty};
     use crate::EventResult;
 
+    use serde_json::{json, to_value};
+
     #[test]
     fn serialization() {
         let dummy_event = DummyEvent { content: Empty };
+        let actual = to_value(dummy_event).unwrap();
 
-        let actual = serde_json::to_string(&dummy_event).unwrap();
-        let expected = r#"{"content":{},"type":"m.dummy"}"#;
+        let expected = json!({
+            "content": {},
+            "type": "m.dummy"
+        });
 
         assert_eq!(actual, expected);
     }
 
     #[test]
     fn deserialization() {
-        let json = r#"{"content":{},"type":"m.dummy"}"#;
+        let json = json!({
+            "content": {},
+            "type": "m.dummy"
+        });
 
-        assert!(serde_json::from_str::<EventResult<DummyEvent>>(json)
+        assert!(serde_json::from_value::<EventResult<DummyEvent>>(json)
             .unwrap()
             .into_result()
             .is_ok());
