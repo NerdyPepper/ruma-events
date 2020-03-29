@@ -1,8 +1,15 @@
 # [unreleased]
 
+# 0.18.0
+
+Breaking changes:
+
+* Update unsigned field's type from `Option<Value>` to `Map<String, Value>`
+
 Improvements:
 
 * Add a convenience constructor to create a plain-text `TextMessageEventContent`
+* Add `m.dummy` events to the to-device event collection
 
 # 0.17.0
 
