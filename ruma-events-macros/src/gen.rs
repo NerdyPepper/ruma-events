@@ -217,7 +217,7 @@ impl ToTokens for RumaEvent {
         let event_type_name = self.event_type.value();
         let output = quote!(
             #(#attrs)*
-            #[derive(serde::Serialize, Clone, PartialEq, Debug, ruma_events_macros::FromRaw)]
+            #[derive(Clone, PartialEq, Debug, serde::Serialize, ruma_events_macros::FromRaw)]
             #[serde(rename = #event_type_name, tag = "type")]
             pub struct #name {
                 #(#event_fields),*
