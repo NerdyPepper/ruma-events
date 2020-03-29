@@ -39,7 +39,7 @@ mod tests {
         content.insert(alice.clone(), room.clone());
 
         let event = DirectEvent { content };
-        let json_data = json! ({
+        let json_data = json!({
             "content": {
                 alice.to_string(): vec![room[0].to_string()],
             },
@@ -57,7 +57,7 @@ mod tests {
             RoomId::new("ruma.io").unwrap(),
         ];
 
-        let json_data = json! ({
+        let json_data = json!({
             "content": {
                 alice.to_string(): vec![rooms[0].to_string(), rooms[1].to_string()],
             },

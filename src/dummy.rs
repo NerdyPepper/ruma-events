@@ -29,7 +29,7 @@ mod tests {
     use super::{DummyEvent, Empty};
     use crate::EventResult;
 
-    use serde_json::{json, to_value};
+    use serde_json::{from_value, json, to_value};
 
     #[test]
     fn serialization() {
@@ -51,7 +51,7 @@ mod tests {
             "type": "m.dummy"
         });
 
-        assert!(serde_json::from_value::<EventResult<DummyEvent>>(json)
+        assert!(from_value::<EventResult<DummyEvent>>(json)
             .unwrap()
             .into_result()
             .is_ok());
