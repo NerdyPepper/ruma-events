@@ -261,8 +261,7 @@ mod tests {
     use js_int::UInt;
 
     use ruma_identifiers::{RoomId, UserId};
-    use serde_json::from_value as from_json_value;
-    use serde_json::json;
+    use serde_json::{from_value as from_json_value, json};
 
     use super::AnyToDeviceEvent;
     use crate::{

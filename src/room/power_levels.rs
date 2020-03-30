@@ -308,8 +308,7 @@ mod tests {
     use js_int::{Int, UInt};
     use maplit::hashmap;
     use ruma_identifiers::{EventId, RoomId, UserId};
-    use serde_json::to_value as to_json_value;
-    use serde_json::{json, Map};
+    use serde_json::{json, to_value as to_json_value, Map};
 
     use super::{
         default_power_level, NotificationPowerLevels, PowerLevelsEvent, PowerLevelsEventContent,

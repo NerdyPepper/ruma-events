@@ -325,9 +325,7 @@ impl Serialize for MSasV1Content {
 
 #[cfg(test)]
 mod tests {
-    use serde_json::from_value as from_json_value;
-    use serde_json::json;
-    use serde_json::to_value as to_json_value;
+    use serde_json::{from_value as from_json_value, json, to_value as to_json_value};
 
     use super::{
         HashAlgorithm, KeyAgreementProtocol, MSasV1Content, MSasV1ContentOptions,

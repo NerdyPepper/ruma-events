@@ -180,8 +180,7 @@ pub(crate) mod raw {
 
 #[cfg(test)]
 mod tests {
-    use serde_json::from_value as from_json_value;
-    use serde_json::json;
+    use serde_json::{from_value as from_json_value, json};
 
     use super::ServerAclEvent;
     use crate::EventResult;

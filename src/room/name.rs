@@ -197,9 +197,7 @@ mod tests {
 
     use js_int::UInt;
     use ruma_identifiers::{EventId, RoomId, UserId};
-    use serde_json::from_value as from_json_value;
-    use serde_json::to_value as to_json_value;
-    use serde_json::{json, Map};
+    use serde_json::{from_value as from_json_value, json, to_value as to_json_value, Map};
 
     use crate::EventResult;
 

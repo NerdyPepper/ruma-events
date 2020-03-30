@@ -434,9 +434,7 @@ impl Serialize for SenderNotificationPermissionCondition {
 
 #[cfg(test)]
 mod tests {
-    use serde_json::from_value as from_json_value;
-    use serde_json::json;
-    use serde_json::to_value as to_json_value;
+    use serde_json::{from_value as from_json_value, json, to_value as to_json_value};
 
     use super::{
         Action, EventMatchCondition, PushCondition, PushRulesEvent, RoomMemberCountCondition,
