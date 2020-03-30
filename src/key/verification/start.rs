@@ -416,16 +416,16 @@ mod tests {
         };
 
         let json_data = json!({
-            "content":{
-                "from_device":"123",
-                "transaction_id":"456",
-                "method":"m.sas.v1",
-                "key_agreement_protocols":["curve25519"],
-                "hashes":["sha256"],
-                "message_authentication_codes":["hkdf-hmac-sha256"],
-                "short_authentication_string":["decimal"]
+            "content": {
+                "from_device": "123",
+                "transaction_id": "456",
+                "method": "m.sas.v1",
+                "key_agreement_protocols": ["curve25519"],
+                "hashes": ["sha256"],
+                "message_authentication_codes": ["hkdf-hmac-sha256"],
+                "short_authentication_string": ["decimal"]
             },
-            "type":"m.key.verification.start"
+            "type": "m.key.verification.start"
         });
 
         assert_eq!(to_json_value(&key_verification_start).unwrap(), json_data);
@@ -446,13 +446,13 @@ mod tests {
         );
 
         let json_data = json!({
-            "from_device":"123",
-            "transaction_id":"456",
-            "method":"m.sas.v1",
-            "hashes":["sha256"],
-            "key_agreement_protocols":["curve25519"],
-            "message_authentication_codes":["hkdf-hmac-sha256"],
-            "short_authentication_string":["decimal"]
+            "from_device": "123",
+            "transaction_id": "456",
+            "method": "m.sas.v1",
+            "hashes": ["sha256"],
+            "key_agreement_protocols": ["curve25519"],
+            "message_authentication_codes": ["hkdf-hmac-sha256"],
+            "short_authentication_string": ["decimal"]
         });
 
         // Deserialize the content struct separately to verify `TryFromRaw` is implemented for it.
@@ -470,15 +470,15 @@ mod tests {
 
         let json_data = json!({
             "content": {
-                "from_device":"123",
-                "transaction_id":"456",
-                "method":"m.sas.v1",
-                "key_agreement_protocols":["curve25519"],
-                "hashes":["sha256"],
-                "message_authentication_codes":["hkdf-hmac-sha256"],
-                "short_authentication_string":["decimal"]
+                "from_device": "123",
+                "transaction_id": "456",
+                "method": "m.sas.v1",
+                "key_agreement_protocols": ["curve25519"],
+                "hashes": ["sha256"],
+                "message_authentication_codes": ["hkdf-hmac-sha256"],
+                "short_authentication_string": ["decimal"]
             },
-            "type":"m.key.verification.start"
+            "type": "m.key.verification.start"
         });
 
         assert_eq!(
@@ -499,10 +499,11 @@ mod tests {
     #[test]
     fn deserialization_structure_mismatch() {
         // Missing several required fields.
-        let error = from_json_value::<EventResult<StartEventContent>>(json!({"from_device":"123"}))
-            .unwrap()
-            .into_result()
-            .unwrap_err();
+        let error =
+            from_json_value::<EventResult<StartEventContent>>(json!({"from_device": "123"}))
+                .unwrap()
+                .into_result()
+                .unwrap_err();
 
         assert!(error.message().contains("missing field"));
         assert!(error.is_deserialization());
@@ -511,13 +512,13 @@ mod tests {
     #[test]
     fn deserialization_validation_missing_required_key_agreement_protocols() {
         let json_data = json!({
-            "from_device":"123",
-            "transaction_id":"456",
-            "method":"m.sas.v1",
-            "key_agreement_protocols":[],
-            "hashes":["sha256"],
-            "message_authentication_codes":["hkdf-hmac-sha256"],
-            "short_authentication_string":["decimal"]
+            "from_device": "123",
+            "transaction_id": "456",
+            "method": "m.sas.v1",
+            "key_agreement_protocols": [],
+            "hashes": ["sha256"],
+            "message_authentication_codes": ["hkdf-hmac-sha256"],
+            "short_authentication_string": ["decimal"]
         });
 
         let error = from_json_value::<EventResult<StartEventContent>>(json_data)
@@ -532,13 +533,13 @@ mod tests {
     #[test]
     fn deserialization_validation_missing_required_hashes() {
         let json_data = json!({
-            "from_device":"123",
-            "transaction_id":"456",
-            "method":"m.sas.v1",
-            "key_agreement_protocols":["curve25519"],
-            "hashes":[],
-            "message_authentication_codes":["hkdf-hmac-sha256"],
-            "short_authentication_string":["decimal"]
+            "from_device": "123",
+            "transaction_id": "456",
+            "method": "m.sas.v1",
+            "key_agreement_protocols": ["curve25519"],
+            "hashes": [],
+            "message_authentication_codes": ["hkdf-hmac-sha256"],
+            "short_authentication_string": ["decimal"]
         });
         let error = from_json_value::<EventResult<StartEventContent>>(json_data)
             .unwrap()
@@ -552,13 +553,13 @@ mod tests {
     #[test]
     fn deserialization_validation_missing_required_message_authentication_codes() {
         let json_data = json!({
-            "from_device":"123",
-            "transaction_id":"456",
-            "method":"m.sas.v1",
-            "key_agreement_protocols":["curve25519"],
-            "hashes":["sha256"],
-            "message_authentication_codes":[],
-            "short_authentication_string":["decimal"]
+            "from_device": "123",
+            "transaction_id": "456",
+            "method": "m.sas.v1",
+            "key_agreement_protocols": ["curve25519"],
+            "hashes": ["sha256"],
+            "message_authentication_codes": [],
+            "short_authentication_string": ["decimal"]
         });
         let error = from_json_value::<EventResult<StartEventContent>>(json_data)
             .unwrap()
@@ -571,13 +572,14 @@ mod tests {
 
     #[test]
     fn deserialization_validation_missing_required_short_authentication_string() {
-        let json_data = json!({"from_device":"123",
-            "transaction_id":"456",
-            "method":"m.sas.v1",
-            "key_agreement_protocols":["curve25519"],
-            "hashes":["sha256"],
-            "message_authentication_codes":["hkdf-hmac-sha256"],
-            "short_authentication_string":[]
+        let json_data = json!({
+            "from_device": "123",
+            "transaction_id": "456",
+            "method": "m.sas.v1",
+            "key_agreement_protocols": ["curve25519"],
+            "hashes": ["sha256"],
+            "message_authentication_codes": ["hkdf-hmac-sha256"],
+            "short_authentication_string": []
         });
         let error = from_json_value::<EventResult<StartEventContent>>(json_data)
             .unwrap()
@@ -592,14 +594,16 @@ mod tests {
     fn deserialization_of_event_validates_content() {
         // This JSON is missing the required value of "curve25519" for "key_agreement_protocols".
         let json_data = json!({
-            "content":{"from_device":"123",
-            "transaction_id":"456",
-            "method":"m.sas.v1",
-            "key_agreement_protocols":[],
-            "hashes":["sha256"],
-            "message_authentication_codes":["hkdf-hmac-sha256"],
-            "short_authentication_string":["decimal"]},
-            "type":"m.key.verification.start"
+            "content": {
+                "from_device": "123",
+                "transaction_id": "456",
+                "method": "m.sas.v1",
+                "key_agreement_protocols": [],
+                "hashes": ["sha256"],
+                "message_authentication_codes": ["hkdf-hmac-sha256"],
+                "short_authentication_string": ["decimal"]
+            },
+            "type": "m.key.verification.start"
         });
         let error = from_json_value::<EventResult<StartEvent>>(json_data)
             .unwrap()

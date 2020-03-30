@@ -187,7 +187,13 @@ mod tests {
 
     #[test]
     fn default_values() {
-        let json_data = json!({"content":{},"event_id":"$h29iv0s8:example.com","origin_server_ts":1,"sender":"@carl:example.com","state_key":"","type":"m.room.server_acl"});
+        let json_data = json!({
+            "content": {},
+            "event_id": "$h29iv0s8:example.com","origin_server_ts":1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.server_acl"
+        });
         let server_acl_event: ServerAclEvent = from_json_value::<EventResult<_>>(json_data)
             .unwrap()
             .into_result()

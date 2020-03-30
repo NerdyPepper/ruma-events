@@ -196,14 +196,14 @@ mod tests {
 
         let actual = to_json_value(&canonical_alias_event).unwrap();
         let expected = json!({
-            "content":{
-                "alias":"#somewhere:localhost"
+            "content": {
+                "alias": "#somewhere:localhost"
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.canonical_alias"
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.canonical_alias"
         });
 
         assert_eq!(actual, expected);
@@ -212,12 +212,12 @@ mod tests {
     #[test]
     fn absent_field_as_none() {
         let json_data = json!({
-            "content":{},
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.canonical_alias"
+            "content": {},
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.canonical_alias"
         });
 
         assert_eq!(
@@ -234,14 +234,14 @@ mod tests {
     #[test]
     fn null_field_as_none() {
         let json_data = json!({
-            "content":{
-                "alias":null
+            "content": {
+                "alias": null
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.canonical_alias"
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.canonical_alias"
         });
         assert_eq!(
             from_json_value::<EventResult<CanonicalAliasEvent>>(json_data)
@@ -258,13 +258,13 @@ mod tests {
     fn empty_field_as_none() {
         let json_data = json!({
             "content": {
-                "alias":""
+                "alias": ""
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.canonical_alias"
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.canonical_alias"
         });
         assert_eq!(
             from_json_value::<EventResult<CanonicalAliasEvent>>(json_data)
@@ -281,14 +281,14 @@ mod tests {
     fn nonempty_field_as_some() {
         let alias = Some(RoomAliasId::try_from("#somewhere:localhost").unwrap());
         let json_data = json!({
-            "content":{
-                "alias":"#somewhere:localhost"
+            "content": {
+                "alias": "#somewhere:localhost"
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.canonical_alias"
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.canonical_alias"
         });
         assert_eq!(
             from_json_value::<EventResult<CanonicalAliasEvent>>(json_data)

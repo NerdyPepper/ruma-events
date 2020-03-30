@@ -343,12 +343,12 @@ mod tests {
 
         let actual = to_json_value(&power_levels_event).unwrap();
         let expected = json!({
-            "content":{},
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.power_levels"
+            "content": {},
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.power_levels"
         });
 
         assert_eq!(actual, expected);
@@ -398,57 +398,57 @@ mod tests {
                 },
             }),
             room_id: Some(RoomId::try_from("!n8f893n9:example.com").unwrap()),
-            unsigned: serde_json::from_str(r#"{"foo":"bar"}"#).unwrap(),
+            unsigned: serde_json::from_str(r#"{"foo": "bar"}"#).unwrap(),
             sender: user,
             state_key: "".to_string(),
         };
 
         let actual = to_json_value(&power_levels_event).unwrap();
         let expected = json!({
-            "content":{
-                "ban":23,
-                "events":{
-                    "m.dummy":23
+            "content": {
+                "ban": 23,
+                "events": {
+                    "m.dummy": 23
                 },
-                "events_default":23,
-                "invite":23,
-                "kick":23,
-                "redact":23,
-                "state_default":23,
-                "users":{
-                    "@carl:example.com":23
+                "events_default": 23,
+                "invite": 23,
+                "kick": 23,
+                "redact": 23,
+                "state_default": 23,
+                "users": {
+                    "@carl:example.com": 23
                 },
-                "users_default":23,
-                "notifications":{
-                    "room":23
+                "users_default": 23,
+                "notifications": {
+                    "room": 23
                 }
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "prev_content":{
-                "ban":42,
-                "events":{
-                    "m.dummy":42
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "prev_content": {
+                "ban": 42,
+                "events": {
+                    "m.dummy": 42
                 },
-                "events_default":42,
-                "invite":42,
-                "kick":42,
-                "redact":42,
-                "state_default":42,
-                "users":{
-                    "@carl:example.com":42
+                "events_default": 42,
+                "invite": 42,
+                "kick": 42,
+                "redact": 42,
+                "state_default": 42,
+                "users": {
+                    "@carl:example.com": 42
                 },
-                "users_default":42,
-                "notifications":{
-                    "room":42
+                "users_default": 42,
+                "notifications": {
+                    "room": 42
                 }
             },
-            "room_id":"!n8f893n9:example.com",
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.power_levels",
-            "unsigned":{
-                "foo":"bar"
+            "room_id": "!n8f893n9:example.com",
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.power_levels",
+            "unsigned": {
+                "foo": "bar"
             }
         });
 

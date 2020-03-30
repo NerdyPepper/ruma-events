@@ -100,10 +100,10 @@ mod tests {
         let json_data = json!({
             "content": {
                 "ignored_users": {
-                    "@carl:example.com":{}
+                    "@carl:example.com": {}
                 }
             },
-            "type":"m.ignored_user_list"
+            "type": "m.ignored_user_list"
         });
 
         assert_eq!(to_json_value(ignored_user_list_event).unwrap(), json_data);
@@ -114,10 +114,10 @@ mod tests {
         let json_data = json!({
             "content": {
                 "ignored_users": {
-                    "@carl:example.com":{}
+                    "@carl:example.com": {}
                 }
             },
-            "type":"m.ignored_user_list"
+            "type": "m.ignored_user_list"
         });
 
         let actual = from_json_value::<EventResult<IgnoredUserListEvent>>(json_data)

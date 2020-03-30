@@ -221,13 +221,13 @@ mod tests {
         let actual = to_json_value(&name_event).unwrap();
         let expected = json!({
             "content": {
-                "name":"The room name"
+                "name": "The room name"
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.name"
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.name"
         });
 
         assert_eq!(actual, expected);
@@ -247,23 +247,23 @@ mod tests {
             room_id: Some(RoomId::try_from("!n8f893n9:example.com").unwrap()),
             sender: UserId::try_from("@carl:example.com").unwrap(),
             state_key: "".to_string(),
-            unsigned: serde_json::from_str(r#"{"foo":"bar"}"#).unwrap(),
+            unsigned: serde_json::from_str(r#"{"foo": "bar"}"#).unwrap(),
         };
 
         let actual = to_json_value(&name_event).unwrap();
         let expected = json!({
             "content": {
-                "name":"The room name"
+                "name": "The room name"
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "prev_content":{"name":"The old name"},
-            "room_id":"!n8f893n9:example.com",
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.name",
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "prev_content": {"name": "The old name"},
+            "room_id": "!n8f893n9:example.com",
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.name",
             "unsigned": {
-                "foo":"bar"
+                "foo": "bar"
             }
         });
 
@@ -273,12 +273,12 @@ mod tests {
     #[test]
     fn absent_field_as_none() {
         let json_data = json!({
-            "content":{},
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.name"
+            "content": {},
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.name"
         });
         assert_eq!(
             from_json_value::<EventResult<NameEvent>>(json_data)
@@ -330,14 +330,14 @@ mod tests {
     #[test]
     fn null_field_as_none() {
         let json_data = json!({
-            "content":{
-                "name":null
+            "content": {
+                "name": null
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.name"
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.name"
         });
         assert_eq!(
             from_json_value::<EventResult<NameEvent>>(json_data)
@@ -356,11 +356,11 @@ mod tests {
             "content": {
                 "name": ""
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.name"
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.name"
         });
         assert_eq!(
             from_json_value::<EventResult<NameEvent>>(json_data)
@@ -378,13 +378,13 @@ mod tests {
         let name = Some("The room name".to_string());
         let json_data = json!({
             "content": {
-                "name":"The room name"
+                "name": "The room name"
             },
-            "event_id":"$h29iv0s8:example.com",
-            "origin_server_ts":1,
-            "sender":"@carl:example.com",
-            "state_key":"",
-            "type":"m.room.name"
+            "event_id": "$h29iv0s8:example.com",
+            "origin_server_ts": 1,
+            "sender": "@carl:example.com",
+            "state_key": "",
+            "type": "m.room.name"
         });
 
         assert_eq!(

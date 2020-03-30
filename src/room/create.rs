@@ -69,9 +69,9 @@ mod tests {
         };
 
         let json = json!({
-            "creator":"@carl:example.com",
-            "m.federate":true,
-            "room_version":"4"
+            "creator": "@carl:example.com",
+            "m.federate": true,
+            "room_version": "4"
         });
 
         assert_eq!(to_json_value(&content).unwrap(), json);
@@ -87,9 +87,9 @@ mod tests {
         };
 
         let json = json!({
-            "creator":"@carl:example.com",
-            "m.federate":true,
-            "room_version":"4"
+            "creator": "@carl:example.com",
+            "m.federate": true,
+            "room_version": "4"
         });
 
         assert_eq!(

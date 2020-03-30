@@ -100,9 +100,9 @@ mod tests {
             "content": {
                 "avatar_url": "mxc://localhost:wefuiwegh8742w",
                 "currently_active": false,
-                "last_active_ago":2_478_593,
-                "presence":"online",
-                "status_msg":"Making cupcakes"
+                "last_active_ago": 2_478_593,
+                "presence": "online",
+                "status_msg": "Making cupcakes"
             },
             "sender": "@example:localhost",
             "type": "m.presence"
@@ -129,9 +129,9 @@ mod tests {
             "content": {
                 "avatar_url": "mxc://localhost:wefuiwegh8742w",
                 "currently_active": false,
-                "last_active_ago":2_478_593,
-                "presence":"online",
-                "status_msg":"Making cupcakes"
+                "last_active_ago": 2_478_593,
+                "presence": "online",
+                "status_msg": "Making cupcakes"
             },
             "sender": "@example:localhost",
             "type": "m.presence"

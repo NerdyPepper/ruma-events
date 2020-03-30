@@ -295,11 +295,11 @@ mod tests {
             });
 
         let json_data = json!({
-            "algorithm":"m.megolm.v1.aes-sha2",
-            "ciphertext":"ciphertext",
-            "sender_key":"sender_key",
-            "device_id":"device_id",
-            "session_id":"session_id"
+            "algorithm": "m.megolm.v1.aes-sha2",
+            "ciphertext": "ciphertext",
+            "sender_key": "sender_key",
+            "device_id": "device_id",
+            "session_id": "session_id"
         });
 
         assert_eq!(
@@ -320,11 +320,11 @@ mod tests {
             });
 
         let json_data = json!({
-            "algorithm":"m.megolm.v1.aes-sha2",
-            "ciphertext":"ciphertext",
-            "sender_key":"sender_key",
-            "device_id":"device_id",
-            "session_id":"session_id"
+            "algorithm": "m.megolm.v1.aes-sha2",
+            "ciphertext": "ciphertext",
+            "sender_key": "sender_key",
+            "device_id": "device_id",
+            "session_id": "session_id"
         });
 
         assert_eq!(
@@ -339,7 +339,7 @@ mod tests {
     #[test]
     fn deserialization_olm() {
         let json_data = json!({
-            "sender_key":"test_key",
+            "sender_key": "test_key",
             "ciphertext": {
                 "test_curve_key": {
                     "body": "encrypted_body",
@@ -368,7 +368,7 @@ mod tests {
     #[test]
     fn deserialization_failure() {
         assert!(from_json_value::<EventResult<EncryptedEventContent>>(
-            json!({"algorithm":"m.megolm.v1.aes-sha2"})
+            json!({"algorithm": "m.megolm.v1.aes-sha2"})
         )
         .unwrap()
         .into_result()

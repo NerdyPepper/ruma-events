@@ -335,11 +335,11 @@ mod tests {
 
         let json_data = json!({
             "content": {
-                "topic":"Testing room"
+                "topic": "Testing room"
             },
-            "type":"m.room.topic",
-            "state_key":"",
-            "sender":"@example:localhost"
+            "type": "m.room.topic",
+            "state_key": "",
+            "sender": "@example:localhost"
         });
 
         assert_eq!(to_json_value(&event).unwrap(), json_data);

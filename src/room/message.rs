@@ -1067,9 +1067,9 @@ mod tests {
         assert_eq!(
             to_json_value(&message_event_content).unwrap(),
             json!({
-                "body":"test",
-                "msgtype":"m.audio",
-                "url":"http://example.com/audio.mp3"
+                "body": "test",
+                "msgtype": "m.audio",
+                "url": "http://example.com/audio.mp3"
             })
         );
     }
@@ -1083,8 +1083,8 @@ mod tests {
         assert_eq!(
             to_json_value(&message_event_content).unwrap(),
             json!({
-                "body":"> <@test:example.com> test\n\ntest reply",
-                "msgtype":"m.text"
+                "body": "> <@test:example.com> test\n\ntest reply",
+                "msgtype": "m.text"
             })
         );
     }
@@ -1103,11 +1103,11 @@ mod tests {
         });
 
         let json_data = json!({
-            "body":"> <@test:example.com> test\n\ntest reply",
-            "msgtype":"m.text",
-            "m.relates_to":{
-                "m.in_reply_to":{
-                    "event_id":"$15827405538098VGFWH:example.com"
+            "body": "> <@test:example.com> test\n\ntest reply",
+            "msgtype": "m.text",
+            "m.relates_to": {
+                "m.in_reply_to": {
+                    "event_id": "$15827405538098VGFWH:example.com"
                 }
             }
         });
@@ -1125,9 +1125,9 @@ mod tests {
         });
 
         let json_data = json!({
-            "body":"test",
-            "msgtype":"m.audio",
-            "url":"http://example.com/audio.mp3"
+            "body": "test",
+            "msgtype": "m.audio",
+            "url": "http://example.com/audio.mp3"
         });
 
         assert_eq!(
@@ -1141,8 +1141,10 @@ mod tests {
 
     #[test]
     fn deserialization_failure() {
-        let json_data =
-            json!({"body":"test","msgtype":"m.location","url":"http://example.com/audio.mp3"});
+        let json_data = json!({
+            "body": "test","msgtype": "m.location",
+            "url": "http://example.com/audio.mp3"
+        });
         assert!(
             from_json_value::<EventResult<MessageEventContent>>(json_data)
                 .unwrap()

@@ -465,7 +465,7 @@ mod tests {
     fn serialize_tweak_highlight_action() {
         assert_eq!(
             to_json_value(&Action::SetTweak(Tweak::Highlight { value: true })).unwrap(),
-            json!({"set_tweak": "highlight", "value":true})
+            json!({"set_tweak": "highlight", "value": true})
         );
     }
 
